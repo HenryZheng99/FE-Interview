@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>proxy-vue</title>
+</head>
+<body>
+    <h2>双向数据绑定</h2>
+    <input style="height:30px;width:300px;" type="text" id="input">
+    <p id="text" style="font-size: 20px;"></p>
+</body>
+<script>
+    const paragraph = document.getElementById('text');
+    const input = document.getElementById('input');
+    const data = {
+        text:"Hello"
+    }
+    const handler = {
+        set: function(target,prop,value){
+            if(prop === 'text'){
+                target[prop] = value;
+                paragraph.innerHTML = value;
+                input.value = value;
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+    const proxy = new Proxy(data,handler);
+    input.addEventListener('input',function(e){
+        proxy.text = e.target.value;
+    },false)
+</script>
+</html>
