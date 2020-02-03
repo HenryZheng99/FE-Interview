@@ -1,77 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    .box {
-      display: flex;
-    }
-
-    .left {
-      width: 200px;
-      height: 400px;
-      background: red;
-    }
-
-    .middle {
-      flex-grow: 1;
-      height: 400px;
-      background: yellow;
-    }
-
-    .right {
-      width: 120px;
-      height: 400px;
-      background: blue;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
-
 <body>
-  <script>
-    Function.prototype.myCall = function (context, ...args) {
-      var context = context || window;
-      context.fn = this;
-      let result = context.fn(...args);
-      delete context.fn;
-      return result;
-    }
-    Function.prototype.myapply = function (context) {
-      var context = context || window;
-      context.fn = this;
-      var result = null;
-      if (arguments[1]) {
-        result = context.fn(...arguments);
-      } else {
-        result = context.fn();
-      }
-      delete context.fn;
-      return result;
-    }
-    //  递归实现（简单版）：
-    function flatten(arr) {
-      let result = [];
-      arr.forEach((v, i) => {
-        if (Array.isArray(v)) {
-          result = result.concat(flatten(v))
-        } else {
-          result.push(arr[i])
+    <script>
+        let str = 'abcde';
+        let a = 'ab';
+        console.log(str.indexOf(a))
+        for(n of str) {
+            
         }
-      });
-      return result
-    }
-    console.log(flatten([1,2,[1,2,3,4,[22,11]]]))
-  </script>
-
+    </script>
 </body>
-
 </html>

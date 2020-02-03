@@ -10,4 +10,92 @@
    |  vh  | viewpoint height，视窗高度，1vh=视窗高度的1%                 |
    | rem  | 根元素（html）的 font-size                                   |
 
-2. 
+2. 盒模型
+
+    盒模型由：元素的内容 + 内边距(padding) + 边框(border) + 外边距(margin)组成 
+
+   > 页面渲染时，`dom` 元素所采用的 布局模型。可通过`box-sizing`进行设置。根据计算宽高的区域可分为（最常用的两种）
+
+   - `content-box` (`W3C` 标准盒模型) 宽度为内容
+   - `border-box` (`IE` 盒模型)   宽度为内容+padding+border （即除了margin）
+
+3. 垂直居中方法
+
+   绝对定位或者flex布局（vertical-align， align-items ）
+
+   img垂直居中
+
+   ```css
+   .tablebox{ /*图片的容器的父级*/
+       width: 300px;
+       height: 250px;
+       background: #fff;
+       display: table}
+   
+   #imgbox{ /*图片的容器*/
+       display: table-cell;
+       vertical-align: middle;
+   }
+   
+   #imgbox img{width: 100px} /*img*/
+   ```
+
+4. 三栏布局
+
+   flex
+
+5. 选择器权重计算方式
+
+   ```css
+   !important > 行内样式style > ID > class/伪类/属性 > 标签 
+   ```
+
+6. 清除浮动的方法
+
+   - 父级定义 `overflow:hidden ` （简单，但超出隐藏，不能和position配合使用）
+   - 父级固定高度  （简单，但是高度被固定了）
+   - after伪元素+zoom （ 需要两句代码结合使用才能让主流浏览器支持 ）用zoom缩放伪元素实现占位
+
+7. flex
+
+8. 什么是BFC、可以解决哪些问题
+
+   **块级格式化上下文(block formatting context)**
+
+   - 创建规则：
+     - 根元素
+     - 浮动元素（`float`不取值为`none`）
+     - 绝对定位元素（`position`取值为`absolute`或`fixed`）
+     - `display`取值为`inline-block`、`table-cell`、`table-caption`、`flex`、`inline-flex`之一的元素
+     - `overflow`不取值为`visible`的元素
+   - 作用：
+     - 可以包含浮动元素
+     - 不被浮动元素覆盖
+     - 阻止父子元素的`margin`折叠(比如嵌套盒子，给父级加`overflow:hidden`)
+
+9. position属性
+
+   - `absolute`：生成绝对定位的元素，相对于 `static` 定位（即默认定位）以外的第一个父元素进行定位
+   - `fixed`：生成绝对定位的元素，相对于浏览器窗口进行定位
+   - `relative`：生成相对定位的元素，相对于其本身正常位置进行定位，它原本所占的空间仍保留
+
+10. 如何实现一个自适应的正方形
+
+   - ```css
+     .placeholder {
+       width: 100%;
+       height: 100vw; /*是vw不是vh*/
+     }
+     ```
+
+   - ```css
+     .placeholder {
+       width: 100%;
+       height:0px;
+       padding-bottom: 100%; /*用padding撑开*/
+     }
+     ```
+
+11. 如何用css实现一个三角形
+
+    利用border，把内容宽高设为0，然后其他三边设为透明色，只留下一边有颜色

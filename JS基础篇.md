@@ -156,5 +156,18 @@
     g(); // 报错
     ```
 
-14.  
+14. 事件模型：**先捕获后冒泡**
 
+    addEventListener有第三个参数，默认为false，即“事件在冒泡阶段执行”
+    
+    ------
+    
+15.  JavaScript实现跨域：
+
+    - **jsonp请求**：jsonp的原理是利用<script>标签的跨域特性，可以不受限制地从其他域中加载资源，类似的标签还有<img>。JSONP优点是简单兼容性好，可用于解决主流浏览器的跨域数据访问的问题。缺点是仅支持get方法具有局限性,不安全可能会遭受XSS攻击。把跨域的API数据接口地址，赋值给script的src。
+
+    - **window.postMessage**：window.postMessages是html5中实现跨域访问的一种新方式，可以使用它来向其它的window对象发送消息，无论这个window对象是属于同源或不同源。
+
+    - **CORS**：CORS背后的基本思想，就是使用自定义的HTTP头部让浏览器与服务器进行沟通，从而决定请求或响应是应该成功还是应该失败。浏览器会自动进行 CORS 通信，实现 CORS 通信的关键是后端。只要后端实现了 CORS，就实现了跨域。
+
+    - **WebSockets**：web sockets原理：在JS创建了web socket之后，会有一个HTTP请求发送到浏览器以发起连接。取得服务器响应后，建立的连接会使用HTTP升级从HTTP协议交换为web sockt协议。
