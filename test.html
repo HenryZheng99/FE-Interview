@@ -8,12 +8,17 @@
 </head>
 <body>
     <script>
-        let str = 'abcde';
-        let a = 'ab';
-        console.log(str.indexOf(a))
-        for(n of str) {
-            
+        function foo(){
+            console.log(this.a)
         }
+        var a =1;
+        foo();
+        const obj = {
+            a:2,
+            foo:foo
+        }
+        obj.foo();
+        // const c = new foo();
     </script>
 </body>
 </html>

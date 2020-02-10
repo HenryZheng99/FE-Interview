@@ -88,7 +88,7 @@
 
    值得注意的一点：”其他任何对象“包括Array
 
-   简单点记：null，Array，object都是”object“，function是“function”，其他的基本数据类型都是它们本身。
+   简单点记：function是“function”，其他的基本数据类型都是它们本身，其他都是”object“（包括null，Array，object）。
    
    **要想获得一个正确的类型**：`Object.prototype.toString.call(xx)`
    
