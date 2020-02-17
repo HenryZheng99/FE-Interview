@@ -62,7 +62,7 @@
 
 8. 什么是BFC、可以解决哪些问题
 
-   **块级格式化上下文(block formatting context)**
+   **块级格式化上下文(block formatting context)** 是页面盒模型布局中的一种 CSS 渲染模式，相当于一个独立的容器，里面的元素和外部的元素相互不影响。 
 
    - 创建规则：
      - 根元素
@@ -71,10 +71,9 @@
      - `display`取值为`inline-block`、`table-cell`、`table-caption`、`flex`、`inline-flex`之一的元素
      - `overflow`不取值为`visible`的元素
    - 作用：
-     - 可以包含浮动元素
-     - 不被浮动元素覆盖
-     - 阻止父子元素的`margin`折叠(比如嵌套盒子，给父级加`overflow:hidden`)
-
+     - 清除浮动
+     - 覆盖嵌套盒子，给父级加overflow:hidden)
+   
 9. position属性
 
    - `absolute`：生成绝对定位的元素，相对于 `static` 定位（即默认定位）以外的第一个父元素进行定位
@@ -101,3 +100,25 @@
 11. 如何用css实现一个三角形
 
     利用border，把内容宽高设为0，然后其他三边设为透明色，只留下一边有颜色
+    
+12. 不定宽高居中
+
+    ```css
+    .container {
+      　　position: relative;
+    }
+    .inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    ```
+
+13. 单行省略号
+
+    ```css
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    ```

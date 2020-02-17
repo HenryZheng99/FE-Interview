@@ -16,6 +16,8 @@
           if(l>0){
             dfs(arr,l-1,r,str+'(')
           }
+          // 进来的时候l本来就比r小1了
+          // 所以这里是l<r不是l<=r
           if(r>0 && l<r){
             dfs(arr,l,r-1,str+')')
           }
@@ -23,6 +25,7 @@
       }
       function ps(n){
         let arr = [];
+        //保证第一个是左括号
         dfs(arr,n-1,n,'(');
         return arr;
       }

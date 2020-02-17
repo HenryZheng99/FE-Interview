@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function add(num1,num2){
+            // 首先检查传来的大数是否是字符串类型，并且字符串中只含有数字
+            const checkNum = num => 
+            {
+                return typeof num === 'string' && !isNaN(Number(num))
+            }
+            //这个函数用来格式化，处理两个数长度不等的情况
+            const format = str => {
+                //如果不是str，就说明已经超出了
+                if(!isNaN(Number(str))) return Number(str);
+                return 0;
+            }
+            if (checkNum(num1) && checkNum(num2)) {
+                // 将传入的字符串转为数组，进行反转，从前向后依次加和，模拟个，十，百依次向上加和
+                const tmp1 = num1.split('').reverse()
+                const tmp2 =  num2.split('').reverse()
+                let result = [];
+
+                //用来保存进位
+                let temp = 0
+                // 以较长的数字为基准进行从前往后逐个加和，为避免两个数相加最高位进位后，导
+                // 致结果长度大于两个数字中的长度，for循环加和长度为最长数字长度加一
+                for (let i = 0; i <= Math.max(tmp1.length, tmp2.length); i++) {
+                    const sum = format(tmp1[i]) + format(tmp2[i]) + temp
+                    // 当加和的数字大于10的情况下，进行进位操作，将要进位的数字赋值给temp，在下一轮使用
+                    result[i] = sum % 10
+                    temp = sum > 9 ? 1 : 0; //十进制加法最多进1
+                }
+
+                // 计算完成，反转回来
+                result.reverse()
+
+                //处理多余的进位，可能是1也可能是0，如果是0就删掉，1就保留
+                const resultNum = result[0] > 0
+                ? result.join('')//数组转字符串
+                : result.join('').slice(1)//从下标1开始切字符串
+                console.log(resultNum)
+                }
+                return resultNum;
+        }
+        add('99999999999999999999999','111111111111111111111111')
+    </script>
+</body>
+</html>
