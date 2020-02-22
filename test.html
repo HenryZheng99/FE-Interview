@@ -8,25 +8,22 @@
 </head>
 <body>
     <script>
-      function dfs(arr,l,r,str){
-          if(l==0 && r==0){
-            arr.push(str);
-            return;
+      function helper(){
+          let i = 2;
+          return function()
+          {
+            if(i%2 ==0){
+                console.log(1)
+            }else{
+                console.log(2)
+            }
+            i++;
           }
-          if(l>0){
-            dfs(arr,l-1,r,str+'(')
-          }
-          if(r>0 && l<r){
-            dfs(arr,l,r-1,str+')')
-          }
-          
       }
-      function ps(n){
-        let arr = [];
-        dfs(arr,n-1,n,'(');
-        return arr;
-      }
-      console.log(ps(3)) //["()"]
+      let a = helper();
+      a();
+      a();
+      a();
     </script>
 </body>
 </html>
