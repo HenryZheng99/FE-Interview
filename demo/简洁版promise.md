@@ -37,7 +37,7 @@ function MyPromise(fn) {
     // 完成以上两个函数以后，我们就该实现如何执行 Promise 中传入的函数了
     try {
         fn(resolve,reject)
-    }cach(e){
+    }catch(e){
         reject(e)
     }
 }

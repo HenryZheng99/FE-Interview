@@ -31,7 +31,7 @@
 
    ES5 对空位的处理，大多数情况下会忽略空位。
 
-   - `forEach()`, `filter()`, `reduce()`, `every()` 和`some()`都会跳过空位。
+   - **`forEach()`, `filter()`, `reduce()`, `every()` 和`some()`都会跳过空位**。
    - `map()`会跳过空位，但会保留这个值
    - `join()`和`toString()`会将空位视为`undefined`，而`undefined`和`null`会被处理成空字符串。
 
@@ -82,19 +82,25 @@
 
    ------
 
-8. Typeof
+7. 类型检测
+
+   **Typeof**
 
    ![typeof](C:\Users\NHT\Desktop\前端复习\img\typeof.PNG)
 
    值得注意的一点：”其他任何对象“包括Array
 
    简单点记：function是“function”，其他的基本数据类型都是它们本身，其他都是”object“（包括null，Array，object）。
-   
-   **要想获得一个正确的类型**：`Object.prototype.toString.call(xx)`
-   
+
+   缺点：有些浏览器的版本，使用他会产生不准确的结果。比如safari(至第四版)，对正则表达式用typeof，结果是function。
+
+   **instanceOf**：对象和构造函数必须在同个全局作用域中
+
+   **要想准确获得一个正确的类型**：`Object.prototype.toString.call(xx)`，原理是，每个类内部都用一个[[class]]属性，这个属性指定了构造函数名。可以用来准确区分原生或者非原生（开发人员自定义的）对象。
+
    ------
-   
-9.  **关于操作数组本身**
+
+8. **关于操作数组本身**
 
    必须要注意的问题是，增删数组本身，会改变它自身的length，从而影响遍历。
 
@@ -116,14 +122,14 @@
    ```
 
    ------
+
+9. slice、扩展运算符...拷贝数组，是**浅拷贝**
+
+10. 定时器重复执行任务：setInterval，只执行一次：setTimeout
+
+   ------
+
    
-10. slice、扩展运算符...拷贝数组，是**浅拷贝**
-
-11. 定时器重复执行任务：setInterval，只执行一次：setTimeout
-
-    ------
-
-    
 
 11. 客户端三种储存方式：
 
@@ -164,12 +170,83 @@
    标记清除法：进入执行环境内的和离开的都要标记
 
    引用计数法：跟踪记录每个值被引用的次数，引用为0就应该清除。 
+   
+16. ```javascript
+    var x = 10;
+    var obj = {
+        x: 20,
+        fn: function() {
+            var x = 30;
+            return this.x;
+        }
+    }
+    console.log(obj.fn()); // 20
+    console.log((obj.fn)()); // 20
+    // 下面开始，this得不到维持，就不知道是谁在调用函数，所以指向window
+    console.log((obj.fn = obj.fn)());// 10
+    console.log((obj.fn,obj.fn)());// 10
+    console.log(obj.fn.apply(window));// 10
+    ```
 
+17. **forEach**使用return只是跳出了当前的循环，使用break会报语法错误。forEach  无法在所有元素都传递给调用的函数之前终止遍历，除非主动用try抛出错误。
 
+18. 使用new来创建对象(调用构造函数)时，如果return的是非对象(数字、字符串、布尔类型等)会忽而略返回值；如果return的是对象，则返回该对象 (注：若return null也会忽略返回值）。 
 
+    ```javascript
+    function Person(name) {
+        this.name = name;
+        return {}
+    }
+    let p = new Person('Tom'); 
+    console.log(p)// {}
+    ```
 
+19. Node的事件模块中，目前只包含一个类:EventEmitter。这个类在Node的内置模块中被大量使用，在Node中，所有能触发事件的对象都是 EventEmitter 类的实例。要使用EventEmitter，首先必须要继承它。
 
+    发布订阅模式
 
+    ```javascript
+    class EventEmitter {
+        constructor () {
+            this._eventpool = {};
+        }
+        // on监听事件
+        on (event, callback) {
+            this._eventpool[event] ? this._eventpool[event].push(callback) : this._eventpool[event] = [callback]
+        }
+        // emit触发事件
+        emit (event, ...args) {
+            this._eventpool[event] && this._eventpool[event].forEach(cb => cb(...args))
+        }
+        // 关闭事件（删除发布者）
+        off (event) {
+            if (this._eventpool[event]) {
+                delete this._eventpool[event]
+            }
+        }
+        // 只执行一次就关闭
+        once (event, callback) {
+            this.on(event, (...args) => {
+                callback(...args);
+                this.off(event)
+            })
+        }
+    }
+    ```
+
+20. ajax原理：创建XMLHttpRequest对象，发送异步请求
+
+    ```
+    1.创建xhr对象（XMLHttpRequest/ActiveXObject(Microsoft.XMLHttp)）
+    
+    2.判断数据传输方式(GET/POST)转换数据格式
+    
+    3.打开链接 open()
+    
+    4.发送 send()
+    
+    5.当ajax对象完成第四步（onreadystatechange）数据接收完成，判断http响应状态（status）200-300之间或者304（缓存）执行回调函数
+    ```
 
 # ES6
 
@@ -203,6 +280,8 @@
 
   - 箭头函数是匿名函数，不可以当作构造函数，也就是说，不可以使用`new`命令，否则会抛出一个错误
   - 箭头函数不绑定this，会捕获其所在的上下文的this值，作为自己的this值
+  - 箭头函数是没有arguments的
+  - 箭头函数不支持generator语法
 
 - 变量的解构赋值
 
@@ -215,3 +294,6 @@
 - js模块化（commonjs/AMD/CMD/ES6）
 
    https://blog.csdn.net/zhenghaohan1999/article/details/102968432 
+   
+   
+

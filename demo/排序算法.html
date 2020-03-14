@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input id="file" type="file">
+        <img src=""/>
+     </div>
+    <script>
+        /*
+        冒泡排序
+        3 2 1 4
+        2 1 3 4
+        1 2 3 4
+        */
+        function bubbleSort(nums){
+            for(let i=0;i<nums.length-1;i++){
+                for(let j=0;j<nums.length-1-i;j++){
+                    swap();
+                }
+            }
+        }
+        /*
+        * 选择排序，每趟选择最小的那个，交换到前面去
+        */
+        function selectSort(nums){
+            for(let i=0;i<nums.length;i++){
+                let min = i;
+                // 遍历剩下的数字，找到最小的那个，记录下标
+                for(let j=i+1;j<nums.length;j++){
+                    if(nums[j] < nums[min]){
+                        min=j;
+                    }
+                }
+                // i等于min就不用交换，不等于就交换
+                if(i!=min){
+                    swap();                
+                }
+            }
+        }
+        /**
+        * 插入排序，扑克牌
+        */
+        function insertSort(nums){
+            let temp; // 用来存拿出来的那张牌
+            // 第一张是排好的了
+            for(let i=1;i<nums.length;i++){
+                temp = nums[i];
+                for(let j=i-1;j>=0;j--){
+                    if(nums[j] > temp){
+                        // 前面的牌往后移动
+                        nums[j+1] = nums[j];
+                    }
+                    else {
+                        // 找到了插入的位置
+                        nums[j] = temp;
+                        break;
+                    }
+                }
+            }
+        }
+        /*
+        * 快速排序
+        */
+        function quicksort(nums,low,high){
+            if(low > high){
+                return;
+            }
+            // 基准值
+            let temp = nums[low];
+            // 哨兵
+            i=low;
+            j=high;
+            // 条件为哨兵相遇
+            while(i!=j){
+                // 右边找比基准值小的
+                while(nums[j] >= temp && i<j){
+                    j--;
+                }
+                // 左边找比基准值大的
+                while(nums[i] <= temp && i<j){
+                    i++;
+                }
+                if(i<j){
+                    swap();
+                }
+            }
+            // 基准值和哨兵交换
+            nums[low] = nums[i];
+            nums[i] = temp;
+            // 递归
+            quicksort(nums,low,i-1);
+            quicksort(nums,i+1,high);
+        }   
+        /**
+        * 归并排序
+        */
+        function mergeSort(nums){
+            // 合并两个数组并使它们有序
+            function merge(l1,r1,l2,r2){
+                // 双指针进行排序
+                let arr = [];
+                let index =0;
+                let i = l1,j = l2;
+                while(i <= r1 && j <= r2){
+                    arr[index++] = nums[i] < nums[j] ? nums[i++] : nums[j++];
+                }
+                // 剩下的还有没排序的就直接加到arr后面
+                while(i<=r1) arr[index++] = nums[i++];
+                while(j<=r2) arr[index++] = nums[j++];
+
+                //  关键的一步，从nums的l1，
+                // 也就是合并前最左边的下标（但不一定是nums的最左边）开始赋值合并
+                for(let t=0;t<index;t++){
+                    nums[l1+t] = arr[t];
+                }
+            }
+            // 递归将数组分为两个序列
+            function recursive(left,right){
+                if(left >= right) return;
+                let mid = parseInt((right-left) / 2) + left;
+                recursive(left,mid);
+                recursive(mid+1,right);
+                merge(left,mid,mid+1,right);
+                return nums;
+            }
+            // 调用执行算法
+            recursive(0, nums.length-1);
+        }
+        /**
+        * 堆排序
+        */
+        function heapSort(nums){
+            
+        }
+    </script>
+</body>
+</html>
