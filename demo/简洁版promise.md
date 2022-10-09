@@ -61,6 +61,8 @@ MyPromise.prototype.then = function(onFulfilled,onRejected){
   if(this.state === REJECTED) {
       onRejected(that.value)
   }
+
+  return this
 }
 ```
 
